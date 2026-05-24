@@ -28,8 +28,8 @@ export default function GuestCreate() {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [foto] = useState<File | null>(null);
-
+  const [foto, setFoto] = useState<File | null>(null);
+  
   const [guestExists, setGuestExists] =
     useState(false);
 
@@ -262,12 +262,19 @@ export default function GuestCreate() {
 
           <input
             type="file"
-            accept="image/*"
-            disabled
-            style={{
-              opacity: 0.5,
-              cursor: "not-allowed",
-            }}
+              accept="image/*"
+              disabled={guestExists}
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  setFoto(e.target.files[0]);
+                }
+              }}
+              style={{
+                opacity: guestExists ? 0.5 : 1,
+                cursor: guestExists
+                  ? "not-allowed"
+                  : "pointer",
+              }}     
           />
 
           {error && (
