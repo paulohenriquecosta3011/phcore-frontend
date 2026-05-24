@@ -28,7 +28,7 @@ export default function GuestCreate() {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [foto, setFoto] = useState<File | null>(null);
+  const [foto] = useState<File | null>(null);
 
   const [guestExists, setGuestExists] =
     useState(false);

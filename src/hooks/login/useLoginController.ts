@@ -68,7 +68,6 @@ if (!companyId) {
       console.log("ERROR COMPLETO:", err);
 console.log("RESPONSE:", err?.response);
 console.log("DATA:", err?.response?.data);
-      const status = err?.response?.status;
 const code = err?.response?.data?.code;
 const message = err?.response?.data?.message;
 switch (code) {

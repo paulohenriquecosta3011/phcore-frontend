@@ -11,7 +11,6 @@ import { QRCode } from "react-qr-code";
 
 import {
   FaWhatsapp,
-  FaQrcode,
 } from "react-icons/fa";
 
 export default function InvitationList() {
