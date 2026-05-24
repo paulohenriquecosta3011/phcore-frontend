@@ -1,0 +1,158 @@
+.invitation-page {
+  padding: 24px;
+}
+
+.invitation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.new-invitation-button {
+  padding: 10px 16px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.invitation-list {
+  display: grid;
+
+  gap: 16px;
+}
+.invitation-card {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 16px;
+
+  padding: 16px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+.invitation-photo {
+  width: 64px;
+  height: 64px;
+
+  border-radius: 12px;
+
+  object-fit: cover;
+
+  background: #f3f4f6;
+
+  flex-shrink: 0;
+}
+
+.invitation-photo-placeholder {
+  width: 64px;
+  height: 64px;
+
+  border-radius: 12px;
+
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+
+  color: #6b7280;
+
+  flex-shrink: 0;
+}
+
+.invitation-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.invitation-info h3 {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.invitation-info div {
+  font-size: 14px;
+
+  color: #6b7280;
+}
+
+.status-waiting {
+  color: #dc2626 !important;
+
+  font-weight: 600;
+}
+
+.status-ok {
+  color: #16a34a !important;
+
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+
+  .invitation-card {
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+  }
+
+  .invitation-actions {
+
+    width: 100%;
+
+    flex-direction: column;
+
+  }
+
+}
+.invitation-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.invitation-filters input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.invitation-filters input[type="text"] {
+  flex: 1;
+  min-width: 240px;
+}
+
+.invitation-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.invitation-actions button {
+  flex: 1;
+}
