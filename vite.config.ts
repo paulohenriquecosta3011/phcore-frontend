@@ -11,6 +11,7 @@ export default defineConfig({
       registerType: "autoUpdate",
 
       manifest: {
+        id: "/",
         name: "PHCore",
         short_name: "PHCore",
         description:
