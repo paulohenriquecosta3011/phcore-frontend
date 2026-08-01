@@ -20,12 +20,11 @@ interface CreateInvitationsDTO {
 
   cpf_convidado: string;
 
-  data_inicial: string;
+  dataconvite: string;
 
   data_final: string;
 
 }
-
 export async function createInvitations(
   data: CreateInvitationsDTO
 ) {

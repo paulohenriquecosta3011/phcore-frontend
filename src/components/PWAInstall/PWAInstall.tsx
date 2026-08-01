@@ -2,39 +2,90 @@ import { useEffect, useState } from "react";
 
 export default function PWAInstall() {
 
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [installed, setInstalled] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<any>(null);
+
+  const [installed, setInstalled] =
+    useState(false);
+
+  const [isDesktop, setIsDesktop] =
+    useState(false);
 
 
   useEffect(() => {
 
-    // Verifica se já está instalado como aplicativo
+    // Não mostra o botão em PC ou notebook
+    const desktop =
+      window.matchMedia(
+        "(min-width: 768px)"
+      ).matches;
+
+    setIsDesktop(desktop);
+
+
+    if (desktop) {
+
+      return;
+
+    }
+
+
+    // Verifica se o aplicativo já está instalado
     const isStandalone =
-      window.matchMedia("(display-mode: standalone)").matches ||
+      window.matchMedia(
+        "(display-mode: standalone)"
+      ).matches ||
       (window.navigator as any).standalone === true;
 
 
     if (isStandalone) {
+
       setInstalled(true);
+
       return;
+
     }
 
 
-    // Evento disparado pelo Chrome quando o PWA pode ser instalado
-    const handler = (event: any) => {
+    // Evento disparado quando o navegador
+    // permite instalar o PWA
+    const handleBeforeInstallPrompt =
+      (event: any) => {
 
-      console.log("PWA disponível para instalação");
+        console.log(
+          "PWA disponível para instalação"
+        );
 
-      event.preventDefault();
+        event.preventDefault();
 
-      setDeferredPrompt(event);
+        setDeferredPrompt(event);
+
+      };
+
+
+    // Evento disparado após a instalação
+    const handleAppInstalled = () => {
+
+      console.log(
+        "PWA instalado com sucesso"
+      );
+
+      setInstalled(true);
+
+      setDeferredPrompt(null);
 
     };
 
 
     window.addEventListener(
       "beforeinstallprompt",
-      handler
+      handleBeforeInstallPrompt
+    );
+
+
+    window.addEventListener(
+      "appinstalled",
+      handleAppInstalled
     );
 
 
@@ -42,7 +93,13 @@ export default function PWAInstall() {
 
       window.removeEventListener(
         "beforeinstallprompt",
-        handler
+        handleBeforeInstallPrompt
+      );
+
+
+      window.removeEventListener(
+        "appinstalled",
+        handleAppInstalled
       );
 
     };
@@ -53,7 +110,6 @@ export default function PWAInstall() {
 
 
   async function handleInstall() {
-
 
     if (!deferredPrompt) {
 
@@ -66,32 +122,45 @@ export default function PWAInstall() {
     }
 
 
-
-    // Abre o popup oficial do navegador
+    // Abre a janela oficial do navegador
     deferredPrompt.prompt();
-
 
 
     const result =
       await deferredPrompt.userChoice;
 
 
-
     console.log(
-      "Resultado instalação:",
+      "Resultado da instalação:",
       result
     );
 
 
+    // Esconde o aviso quando o usuário aceita
+    if (
+      result.outcome === "accepted"
+    ) {
 
+      setInstalled(true);
+
+    }
+
+
+    // O evento só pode ser usado uma vez
     setDeferredPrompt(null);
 
   }
 
 
 
-  if (installed) {
+  // Não mostra no PC ou se já estiver instalado
+  if (
+    installed ||
+    isDesktop
+  ) {
+
     return null;
+
   }
 
 
@@ -107,8 +176,8 @@ export default function PWAInstall() {
         padding: "16px",
         background: "#ffffff",
         borderRadius: "12px",
-        boxShadow: "0 4px 15px " +
-          "rgba(0,0,0,0.2)",
+        boxShadow:
+          "0 4px 15px rgba(0,0,0,0.2)",
         zIndex: 9999,
         textAlign: "center"
       }}
@@ -135,7 +204,6 @@ export default function PWAInstall() {
       >
         Instalar aplicativo
       </button>
-
 
     </div>
 

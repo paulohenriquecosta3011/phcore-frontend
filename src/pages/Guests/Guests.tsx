@@ -116,18 +116,18 @@ export default function Guests() {
 
     setSaving(true);
 
-    await createInvitations({
+   await createInvitations({
 
-      cpf_convidado:
-        selectedGuest.cpf,
+  cpf_convidado:
+    selectedGuest.cpf,
 
-      data_inicial:
-        startDate,
+  dataconvite:
+    startDate,
 
-      data_final:
-        endDate
+  data_final:
+    endDate
 
-    });
+});
 
     toast.success(
       "Convites gerados com sucesso!"
@@ -147,13 +147,26 @@ export default function Guests() {
 
     console.error(error);
 
-    toast.error(
+    const message =
+      error?.response?.data?.message;
 
-      error?.response?.data?.message ||
+    if (
+      message ===
+      "Already exists an invite overlapping this period."
+    ) {
 
-      "Erro ao gerar convites"
+      toast.error(
+        "Já existe um convite ativo para este período. Ajuste as datas e tente novamente."
+      );
 
-    );
+    } else {
+
+      toast.error(
+        message ||
+        "Erro ao gerar convites"
+      );
+
+    }
 
   } finally {
 
