@@ -10,12 +10,18 @@ import Guests from "../pages/Guests/Guests";
 import GuestCreate from "../pages/Guests/GuestCreate";
 import InvitationList from "../pages/Invitations/InvitationList";
 import PublicInvitation from "../pages/PublicInvitation/PublicInvitation";
-
+import Messages from "../pages/Messages/Messages";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/convite/:token"element={<PublicInvitation/>}  />
       <Route path="/login" element={<Login />} />
+
+      <Route 
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
 
       <Route
         element={
@@ -32,8 +38,8 @@ export default function AppRoutes() {
         <Route  path="/invitations/list"  element={<InvitationList />}/>
 
         <Route path="/invitations/new" element={<div>Gerar Convite</div>} />
-        <Route path="/messages" element={<div>Recados</div>} />
-
+        <Route path="/messages" element={<Messages />} />
+        
       </Route>
 
       <Route path="*" element={<Navigate to="/login" />} />

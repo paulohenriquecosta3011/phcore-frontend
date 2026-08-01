@@ -13,6 +13,19 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
+const formatInvitationDate = (
+date: string
+) => {
+
+const [year, month, day] =
+date
+.split("T")[0]
+.split("-");
+
+return day + "/" + month + "/" + year;
+
+};
+
 export default function InvitationList() {
 
   const { invitations, loading } =
@@ -216,16 +229,11 @@ export default function InvitationList() {
                   }
                 </div>
 
-                <div>
-                  Data:
-                  {" "}
-
-                  {new Date(
-                    invitation.dataconvite
-                  ).toLocaleDateString(
-                    "pt-BR"
-                  )}
-
+                <div>                
+                  Período:{" "}
+                    {formatInvitationDate(invitation.dataconvite)}{" "}
+                    até{" "}
+                    {formatInvitationDate(invitation.data_Final)}
                 </div>
 
                 <div
@@ -271,15 +279,14 @@ export default function InvitationList() {
                   const inviteLink =
                     `${window.location.origin}/convite/${invitation.token}`;
                   const message =
-                  `Olá ${invitation.nome_convidado},
+                    `Olá ${invitation.nome_convidado},
 
-                  Este é seu convite para o clube.
+                    Este é seu convite para o clube.
 
-                  Data: ${new Date(
-                    invitation.dataconvite
-                  ).toLocaleDateString("pt-BR")}
-
-                  Acesse seu QRCode:
+                    Período:
+                      ${formatInvitationDate(invitation.dataconvite)} até
+                      ${formatInvitationDate(invitation.data_Final)}                   
+                    Acesse seu QRCode:
                   ${inviteLink}`;
 
                   const phone =
@@ -314,13 +321,10 @@ export default function InvitationList() {
 
                     <div className="qrcode-date">
 
-                      Válido para:
-
-                      {" "}
-
-                      {new Date(
-                        invitation.dataconvite
-                      ).toLocaleDateString("pt-BR")}
+                       Válido de{" "}
+                    {formatInvitationDate(invitation.dataconvite)}{" "}
+                    até{" "}
+                    {formatInvitationDate(invitation.data_Final)}
 
                     </div>
 

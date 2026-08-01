@@ -3,6 +3,7 @@ import "./Login.css";
 
 import { useLoginState } from "../../hooks/login/useLoginState";
 import { useLoginController } from "../../hooks/login/useLoginController";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [password, setPassword] = useState("");
@@ -110,6 +111,12 @@ export default function Login() {
         >
           {loading ? "Entrando..." : "Entrar"}
         </button>
+        <Link
+          to="/forgot-password"
+          className="forgot-password"
+        >
+          Esqueci minha senha
+        </Link>
 
       </div>
     </div>

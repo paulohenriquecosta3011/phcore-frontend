@@ -11,6 +11,8 @@ export type Invitation = {
 
   dataconvite: string;
 
+  data_Final: string;
+
   status: string;
 
   token: string;
