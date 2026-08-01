@@ -295,11 +295,17 @@ export default function GuestCreate() {
                 if (file) {
                   setFoto(file);
 
-                  setFotoPreview(
-                    URL.createObjectURL(file)
-                  );
-                }
-              }}
+                 const reader = new FileReader();
+
+                  reader.onloadend = () => {
+                    setFotoPreview(
+                      reader.result as string
+                    );
+                  };
+
+                  reader.readAsDataURL(file);
+                                  }
+                                }}
               style={{
                 display: "none",
               }}
