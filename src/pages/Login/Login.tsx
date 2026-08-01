@@ -49,7 +49,7 @@ export default function Login() {
     <div className="login-container">
       <div className="login-box">
 
-        <h2>Club App</h2>
+        <h2>Club App v2</h2>
 
         {error && (
           <div className="error-message">
