@@ -6,6 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import PWAUpdate from "./components/PWAUpdate/PWAUpdate";
 
+import PWAInstall from "./components/PWAInstall/PWAInstall";
+
+
 export default function App() {
 
   return (
@@ -13,7 +16,8 @@ export default function App() {
     <>
 
       <AppRoutes />
-     <PWAUpdate />
+      <PWAInstall />
+      <PWAUpdate />
      
       <ToastContainer
         position="top-right"
