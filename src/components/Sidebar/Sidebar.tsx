@@ -124,7 +124,7 @@ export function Sidebar({
             )
           }
         >
-          Dashboard
+          Sobre o App
         </button>
 
         {/* CONVITES */}
@@ -160,20 +160,7 @@ export function Sidebar({
           Lista de Convites
         </button>
 
-        <button
-          style={buttonStyle(
-            isActive(
-              "/invitations/new"
-            )
-          )}
-          onClick={() =>
-            handleNavigate(
-              "/invitations/new"
-            )
-          }
-        >
-          Gerar Convite
-        </button>
+       
 
         {/* CONVIDADOS */}
 

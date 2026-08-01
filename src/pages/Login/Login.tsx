@@ -77,15 +77,11 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {/* EMPRESA */}
-        <div className="form-group">
-          <label>Empresa</label>
+     {/* EMPRESA - somente aparece quando houver mais de uma */}
+        {companies.length > 1 && (
+          <div className="form-group">
+            <label>Empresa</label>
 
-          {companies.length === 1 ? (
-            <div className="company-fixed">
-              {companies[0]?.nome}
-            </div>
-          ) : (
             <select
               className="select-company"
               value={selectedCompany ?? ""}
@@ -93,16 +89,21 @@ export default function Login() {
                 setSelectedCompany(Number(e.target.value))
               }
             >
-              <option value="">Selecione uma empresa</option>
+              <option value="">
+                Selecione uma empresa
+              </option>
 
               {companies.map((c: any) => (
-                <option key={c.id_empresa} value={c.id_empresa}>
+                <option
+                  key={c.id_empresa}
+                  value={c.id_empresa}
+                >
                   {c.nome}
                 </option>
               ))}
             </select>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* BOTÃO LOGIN */}
         <button

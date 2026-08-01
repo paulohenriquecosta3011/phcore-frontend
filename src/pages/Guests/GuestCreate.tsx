@@ -260,22 +260,51 @@ export default function GuestCreate() {
             }}
           />
 
-          <input
-            type="file"
-              accept="image/*"
-              disabled={guestExists}
-              onChange={(e) => {
-                if (e.target.files?.[0]) {
-                  setFoto(e.target.files[0]);
-                }
-              }}
+        <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <label
+              htmlFor="foto"
               style={{
-                opacity: guestExists ? 0.5 : 1,
+                padding: "12px 20px",
+                background: "#2563eb",
+                color: "#fff",
+                borderRadius: "8px",
                 cursor: guestExists
                   ? "not-allowed"
                   : "pointer",
-              }}     
-          />
+                opacity: guestExists ? 0.5 : 1,
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+            >
+              📷 Escolher foto
+            </label>
+
+            <input
+              id="foto"
+              type="file"
+              accept="image/*"
+              disabled={guestExists}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+
+                if (file) {
+                  setFoto(file);
+
+                  setFotoPreview(
+                    URL.createObjectURL(file)
+                  );
+                }
+              }}
+              style={{
+                display: "none",
+              }}
+            />
+          </div>
 
           {error && (
             <div
