@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
 export default function PWAInstall() {
+
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [installed, setInstalled] = useState(false);
+
 
   useEffect(() => {
 
@@ -10,6 +12,7 @@ export default function PWAInstall() {
     const isStandalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (window.navigator as any).standalone === true;
+
 
     if (isStandalone) {
       setInstalled(true);
@@ -19,11 +22,13 @@ export default function PWAInstall() {
 
     // Evento disparado pelo Chrome quando o PWA pode ser instalado
     const handler = (event: any) => {
+
       console.log("PWA disponível para instalação");
 
       event.preventDefault();
 
       setDeferredPrompt(event);
+
     };
 
 
@@ -34,28 +39,42 @@ export default function PWAInstall() {
 
 
     return () => {
+
       window.removeEventListener(
         "beforeinstallprompt",
         handler
       );
+
     };
+
 
   }, []);
 
 
+
   async function handleInstall() {
 
+
     if (!deferredPrompt) {
+
+      alert(
+        "O navegador ainda não liberou a instalação automática. Use o menu ⋮ do Chrome e escolha 'Instalar aplicativo'."
+      );
+
       return;
+
     }
+
 
 
     // Abre o popup oficial do navegador
     deferredPrompt.prompt();
 
 
+
     const result =
       await deferredPrompt.userChoice;
+
 
 
     console.log(
@@ -64,17 +83,21 @@ export default function PWAInstall() {
     );
 
 
+
     setDeferredPrompt(null);
 
   }
 
 
-  if (installed || !deferredPrompt) {
+
+  if (installed) {
     return null;
   }
 
 
+
   return (
+
     <div
       style={{
         position: "fixed",
@@ -84,7 +107,8 @@ export default function PWAInstall() {
         padding: "16px",
         background: "#ffffff",
         borderRadius: "12px",
-        boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+        boxShadow: "0 4px 15px " +
+          "rgba(0,0,0,0.2)",
         zIndex: 9999,
         textAlign: "center"
       }}
@@ -112,6 +136,9 @@ export default function PWAInstall() {
         Instalar aplicativo
       </button>
 
+
     </div>
+
   );
+
 }
