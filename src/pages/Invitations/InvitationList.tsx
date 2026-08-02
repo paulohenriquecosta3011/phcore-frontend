@@ -3,7 +3,6 @@ import {
   useState,
 } from "react";
 
-import { useNavigate } from "react-router-dom";
 import { useInvitationList } from "../../hooks/invites/useInvitationList";
 import "./InvitationList.css";
 
@@ -31,9 +30,7 @@ export default function InvitationList() {
   const { invitations, loading } =
     useInvitationList();
 
-  const navigate = useNavigate();
-
-  const [search, setSearch] =
+   const [search, setSearch] =
     useState("");
 
   const [filterDate, setFilterDate] =
