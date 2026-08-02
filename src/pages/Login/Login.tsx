@@ -119,7 +119,7 @@ export default function Login() {
           Esqueci minha senha
         </Link>
         <div className="app-version">
-          Versão 1.2<br />
+          Versão 1.0<br />
           Atualizado em 02/08/2026
         </div>
       </div>

@@ -161,12 +161,11 @@ export default function GuestCreate() {
           border: "1px solid #ddd",
         }}
       >
-        <div
+            <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent:
-              "space-between",
             marginBottom: "24px",
           }}
         >
@@ -205,13 +204,13 @@ export default function GuestCreate() {
             )}
           </div>
 
-          <h1
-            style={{
-              margin: 0,
-            }}
-          >
-            Convidado
-          </h1>
+         <h1
+          style={{
+            margin: "12px 0 0 0",
+          }}
+        >
+          Convidado
+        </h1>
         </div>
 
         <form
