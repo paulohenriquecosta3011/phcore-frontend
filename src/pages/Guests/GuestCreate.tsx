@@ -75,20 +75,34 @@ export default function GuestCreate() {
   }
 
   function handleFotoChange(
-    e: React.ChangeEvent<HTMLInputElement>
-  ) {
-    const file = e.target.files?.[0];
+  e: React.ChangeEvent<HTMLInputElement>
+) {
+  const file = e.target.files?.[0];
 
-    if (file) {
-      setFoto(file);
+  console.log("Arquivo selecionado:", file);
 
-      const previewUrl =
-        URL.createObjectURL(file);
-
-      setFotoPreview(previewUrl);
-    }
+  if (!file) {
+    return;
   }
 
+  setFoto(file);
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    setFotoPreview(
+      reader.result as string
+    );
+  };
+
+  reader.onerror = () => {
+    setError(
+      "Não foi possível carregar a prévia da foto."
+    );
+  };
+
+  reader.readAsDataURL(file);
+}
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ) {
