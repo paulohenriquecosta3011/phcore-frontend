@@ -31,7 +31,7 @@ export default function GuestCreate() {
   const [foto, setFoto] = useState<File | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const cameraInputRef = useRef<HTMLInputElement>(null);
+  
 
   const [guestExists, setGuestExists] =
     useState(false);
@@ -74,7 +74,7 @@ export default function GuestCreate() {
     }
   }
 
-  function handleFotoChange(
+ function handleFotoChange(
   e: React.ChangeEvent<HTMLInputElement>
 ) {
   const file = e.target.files?.[0];
@@ -87,21 +87,9 @@ export default function GuestCreate() {
 
   setFoto(file);
 
-  const reader = new FileReader();
+  const previewUrl = URL.createObjectURL(file);
 
-  reader.onload = () => {
-    setFotoPreview(
-      reader.result as string
-    );
-  };
-
-  reader.onerror = () => {
-    setError(
-      "Não foi possível carregar a prévia da foto."
-    );
-  };
-
-  reader.readAsDataURL(file);
+  setFotoPreview(previewUrl);
 }
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
@@ -325,27 +313,7 @@ export default function GuestCreate() {
               🖼️ Escolher foto
             </button>
 
-            <button
-              type="button"
-              disabled={guestExists}
-              onClick={() =>
-                cameraInputRef.current?.click()
-              }
-              style={{
-                padding: "12px 20px",
-                background: "#16a34a",
-                color: "#fff",
-                borderRadius: "8px",
-                border: "none",
-                cursor: guestExists
-                  ? "not-allowed"
-                  : "pointer",
-                opacity: guestExists ? 0.5 : 1,
-              }}
-            >
-              📷 Tirar foto
-            </button>
-
+           
             <input
               ref={fileInputRef}
               type="file"
@@ -357,17 +325,7 @@ export default function GuestCreate() {
               }}
             />
 
-            <input
-              ref={cameraInputRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
-              disabled={guestExists}
-              onChange={handleFotoChange}
-              style={{
-                display: "none",
-              }}
-            />
+           
           </div>
 
           {error && (
