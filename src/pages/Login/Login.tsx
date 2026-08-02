@@ -49,7 +49,7 @@ export default function Login() {
     <div className="login-container">
       <div className="login-box">
 
-        <h2>Club App v2</h2>
+        <h2>Club App</h2>
 
         {error && (
           <div className="error-message">
@@ -118,7 +118,10 @@ export default function Login() {
         >
           Esqueci minha senha
         </Link>
-
+        <div className="app-version">
+          Versão 2.0<br />
+          Atualizado em 02/08/2026
+        </div>
       </div>
     </div>
   );
