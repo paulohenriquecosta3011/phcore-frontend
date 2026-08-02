@@ -114,16 +114,7 @@ export default function InvitationList() {
 
         <h1>Convites</h1>
 
-        <button
-          onClick={() =>
-            navigate(
-              "/invitations/new"
-            )
-          }
-          className="new-invitation-button"
-        >
-          Novo Convite
-        </button>
+       
 
       </div>
 

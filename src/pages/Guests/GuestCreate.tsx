@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   createGuest,
@@ -29,7 +29,10 @@ export default function GuestCreate() {
   const [cpf, setCpf] = useState("");
   const [telefone, setTelefone] = useState("");
   const [foto, setFoto] = useState<File | null>(null);
-  
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+
   const [guestExists, setGuestExists] =
     useState(false);
 
@@ -68,6 +71,21 @@ export default function GuestCreate() {
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  function handleFotoChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setFoto(file);
+
+      const previewUrl =
+        URL.createObjectURL(file);
+
+      setFotoPreview(previewUrl);
     }
   }
 
@@ -150,11 +168,11 @@ export default function GuestCreate() {
             marginBottom: "24px",
           }}
         >
-          <div
+        <div
             style={{
-              width: "70px",
-              height: "70px",
-              borderRadius: "50%",
+              width: "110px",
+              height: "110px",
+              borderRadius: "12px",
               overflow: "hidden",
               background: "#f3f4f6",
               border: "1px solid #ddd",
@@ -202,6 +220,8 @@ export default function GuestCreate() {
             gap: "16px",
           }}
         >
+
+          {/* CPF */}
           <input
             type="text"
             placeholder="CPF"
@@ -223,6 +243,7 @@ export default function GuestCreate() {
             }}
           />
 
+          {/* Nome */}
           <input
             type="text"
             placeholder="Nome"
@@ -241,6 +262,7 @@ export default function GuestCreate() {
             }}
           />
 
+          {/* Telefone */}
           <input
             type="text"
             placeholder="Telefone"
@@ -260,52 +282,74 @@ export default function GuestCreate() {
             }}
           />
 
-        <div
+          {/* Fotos */}
+          <div
             style={{
               display: "flex",
               justifyContent: "center",
+              gap: "12px",
             }}
           >
-            <label
-              htmlFor="foto"
+            <button
+              type="button"
+              disabled={guestExists}
+              onClick={() =>
+                fileInputRef.current?.click()
+              }
               style={{
                 padding: "12px 20px",
                 background: "#2563eb",
                 color: "#fff",
                 borderRadius: "8px",
+                border: "none",
                 cursor: guestExists
                   ? "not-allowed"
                   : "pointer",
                 opacity: guestExists ? 0.5 : 1,
-                fontSize: "14px",
-                fontWeight: "500",
               }}
             >
-              📷 Escolher foto
-            </label>
+              🖼️ Escolher foto
+            </button>
+
+            <button
+              type="button"
+              disabled={guestExists}
+              onClick={() =>
+                cameraInputRef.current?.click()
+              }
+              style={{
+                padding: "12px 20px",
+                background: "#16a34a",
+                color: "#fff",
+                borderRadius: "8px",
+                border: "none",
+                cursor: guestExists
+                  ? "not-allowed"
+                  : "pointer",
+                opacity: guestExists ? 0.5 : 1,
+              }}
+            >
+              📷 Tirar foto
+            </button>
 
             <input
-              id="foto"
+              ref={fileInputRef}
               type="file"
               accept="image/*"
               disabled={guestExists}
-              onChange={(e) => {
-                const file = e.target.files?.[0];
+              onChange={handleFotoChange}
+              style={{
+                display: "none",
+              }}
+            />
 
-                if (file) {
-                  setFoto(file);
-
-                 const reader = new FileReader();
-
-                  reader.onloadend = () => {
-                    setFotoPreview(
-                      reader.result as string
-                    );
-                  };
-
-                  reader.readAsDataURL(file);
-                                  }
-                                }}
+            <input
+              ref={cameraInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              disabled={guestExists}
+              onChange={handleFotoChange}
               style={{
                 display: "none",
               }}
@@ -339,6 +383,7 @@ export default function GuestCreate() {
               ? "Adicionar"
               : "Cadastrar"}
           </button>
+
         </form>
       </div>
     </div>
